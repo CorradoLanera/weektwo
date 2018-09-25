@@ -1,0 +1,23 @@
+Package: weektwo
+Title: Course: Building R Packages, week 2
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Corrado",
+           family = "Lanera",
+           role = c("aut", "cre"),
+           email = "corrado.lanera@unipd.it"
+    )
+Description: Represent th exercise for the week2 of th Coursera course:
+             "Building R Packages."
+License: GPL-3
+Depends: 
+    R (>= 3.5.1.0)
+Imports: 
+    dplyr,
+    maps,
+    readr,
+    tidyr,
+    magrittr
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.0
