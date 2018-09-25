@@ -22,6 +22,11 @@ Fars file has to be stored in a \code{CSV} file format.
 }
 \examples{
 \dontrun{
-    fars_read("accident_2013.csv.bz2")
+    library(weektwo)
+    sample_data <- system.file("sample-data/accident_2013.csv.bz2",
+        package = "weektwo"
+    )
+
+    fars_read(sample_data)
 }
 }

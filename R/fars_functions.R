@@ -16,10 +16,15 @@
 #'
 #' @examples
 #' \dontrun{
-#'     fars_read("accident_2013.csv.bz2")
+#'     library(weektwo)
+#'     sample_data <- system.file("sample-data/accident_2013.csv.bz2",
+#'         package = "weektwo"
+#'     )
+#'
+#'     fars_read(sample_data)
 #' }
 fars_read <- function(filename) {
-    if(!file.exists(filename))
+    if (!file.exists(filename))
         stop("file '", filename, "' does not exist")
     data <- suppressMessages({
         readr::read_csv(filename, progress = FALSE)
@@ -81,8 +86,7 @@ fars_read_years <- function(years) {
         file <- make_filename(year)
         tryCatch({
             dat <- fars_read(file)
-            dplyr::mutate(dat, year = year) %>%
-                dplyr::select(MONTH, year)
+            dplyr::mutate(dat, year = year)[, c("MONTH", "year")]
         }, error = function(e) {
             warning("invalid year: ", year)
             return(NULL)
@@ -162,10 +166,10 @@ fars_map_state <- function(state.num, year) {
     data <- fars_read(filename)
     state.num <- as.integer(state.num)
 
-    if(!(state.num %in% unique(data$STATE)))
+    if (!(state.num %in% unique(data[["STATE"]])))
         stop("invalid STATE number: ", state.num)
     data.sub <- dplyr::filter(data, STATE == state.num)
-    if(nrow(data.sub) == 0L) {
+    if (nrow(data.sub) == 0L) {
         message("no accidents to plot")
         return(invisible(NULL))
     }
