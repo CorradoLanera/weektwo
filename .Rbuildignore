@@ -8,4 +8,3 @@
 ^data-raw$
 ^.*\.Rproj$
 ^\.Rproj\.user$
-^.*\.csv\.bz2$

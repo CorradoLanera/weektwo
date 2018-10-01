@@ -1,3 +1,7 @@
+# weektwo 0.0.2
+
+* convert `fars_summarize_years()` to SE.
+
 # weektwo 0.0.1
 
 * move sample data in the `test` folder

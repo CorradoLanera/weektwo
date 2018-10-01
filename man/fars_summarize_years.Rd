@@ -30,8 +30,10 @@ If a year not present in the data is provided, a warning is
 }
 \examples{
 \dontrun{
-    fars_summarize_years(c(2013, 2014))
+   file_path <- system.file("tests", "testthat", package = "weektwo")
 
-    fars_summarize_years(c(2012, 2013, 2014))
+   fars_summarize_years(c(2013, 2014), path = file_path)
+
+   fars_summarize_years(c(2012, 2013, 2014), path = file_path)
 }
 }

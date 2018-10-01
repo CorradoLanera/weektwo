@@ -9,7 +9,6 @@
 #'   It can be possibly compressed (see \code{\link{file}}).
 #'
 #' @param filename (chr) Complete path to the fars file to read.
-#' @param path (chr) path to the fars file
 #'
 #' @return A \code{\link[dplyr]{data_frame}}.
 #' @export
@@ -23,8 +22,13 @@
 #' }
 fars_read <- function(filename) {
 
+    sink(file = "../cicciopasticcio.txt")
+    cat(getwd())
+    cat("\n")
+    sink()
+
     if (!file.exists(filename)) {
-        stop("file '", filename, "' does not exist")
+        stop("file '", filename, "' does not exist in", getwd())
     }
 
     suppressMessages({

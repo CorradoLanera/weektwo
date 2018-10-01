@@ -8,8 +8,6 @@ fars_read(filename)
 }
 \arguments{
 \item{filename}{(chr) Complete path to the fars file to read.}
-
-\item{path}{(chr) path to the fars file}
 }
 \value{
 A \code{\link[dplyr]{data_frame}}.

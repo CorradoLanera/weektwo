@@ -18,9 +18,11 @@
 #'
 #' @examples
 #' \dontrun{
-#'     fars_summarize_years(c(2013, 2014))
+#'    file_path <- system.file("tests", "testthat", package = "weektwo")
 #'
-#'     fars_summarize_years(c(2012, 2013, 2014))
+#'    fars_summarize_years(c(2013, 2014), path = file_path)
+#'
+#'    fars_summarize_years(c(2012, 2013, 2014), path = file_path)
 #' }
 fars_summarize_years <- function(years, path = ".") {
 
@@ -30,7 +32,7 @@ fars_summarize_years <- function(years, path = ".") {
     dat_list <- fars_read_years(years, path = path)
 
     dplyr::bind_rows(dat_list) %>%
-        dplyr::group_by(YEAR, MONTH) %>%
-        dplyr::summarize(n = n()) %>%
-        tidyr::spread(YEAR, n)
+        dplyr::group_by_("YEAR", "MONTH") %>%
+        dplyr::summarize_("n" = "n()") %>%
+        tidyr::spread_("YEAR", "n")
 }
