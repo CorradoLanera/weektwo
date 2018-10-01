@@ -18,11 +18,6 @@ knitr::opts_chunk$set(
 
 This package help you to import and manage fars data.
 
-## Import basic files
-To import fars with the `weektwo` package, you can simply provide the
-full path to your file and call `fars_read()`. In the package, there are
-same sample data in the test folder used to test the package itself.
-
 
 First of all we have to install and load the package 
 
@@ -34,13 +29,18 @@ library(weektwo)
 
 
 
-Next, we can take advantage the test files to provide some examples
+## Import basic files
+To import fars with the `weektwo` package, you can simply provide the
+full path to your file and call `fars_read()`. In the package, there are
+same sample data in the `sample-data` folder of the package.
+
+Hence, we can take advantage the test files to provide some examples
 
 ```{r}
-file_path  <- system.file("tests", "testthat", package = "weektwo")
+file_path  <- system.file("sample-data", package = "weektwo")
 fars_files <- list.files(file_path, "\\.bz2$")
 
-example_fars <- file.path(file_path, fars_files[1])
+example_fars <- file.path(file_path, fars_files[[1]])
 
 example_fars
 
