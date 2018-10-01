@@ -1,0 +1,93 @@
+---
+title: "Vignette Title"
+author: "Vignette Author"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+This package help you to import and manage fars data.
+
+
+First of all we have to install and load the package 
+
+```{r}
+# install.package("devtools")
+# devtools::install_github("CorradoLanera/weektwo")
+library(weektwo)
+```
+
+
+
+## Import basic files
+To import fars with the `weektwo` package, you can simply provide the
+full path to your file and call `fars_read()`. In the package, there are
+same sample data in the `sample-data` folder of the package.
+
+Hence, we can take advantage the test files to provide some examples
+
+```{r}
+file_path  <- system.file("sample-data", package = "weektwo")
+fars_files <- list.files(file_path, "\\.bz2$")
+
+example_fars <- file.path(file_path, fars_files[[1]])
+
+example_fars
+
+fars_read(example_fars)
+```
+
+
+
+Anyway you can load more than one file just providing its data, and the
+path to the folder in wich the files are stored.
+
+```{r}
+list_of_faers <- fars_read_years(c(2013, 2014), path = file_path)
+list_of_faers
+```
+
+The output is a named list, hance we can access to each element by the
+double square brackets (`[[`) both using index or the year itself (as
+a string).
+
+```{r}
+by_index <- list_of_faers[[1]]
+by_name <- list_of_faers[["2013"]]
+
+identical(by_index, by_name)
+
+by_name
+```
+
+
+If you want to compare the distribution of fars among multiple year
+you can directly access to the number of fars each month on the years
+of your interest. This is as simple as a single funciton call
+
+```{r}
+fars_summarize_years(c(2013, 2014), path = file_path)
+```
+
+At the end the `weektwo` package let you able to map the fars among
+countries. Let pass to `fars_map_state()` an ID of a cuntry and you are 
+ready to go!
+
+```{r}
+fars_map_state(
+    state = 1,
+    year  = 2013,
+    path  = file_path
+)
+```
+

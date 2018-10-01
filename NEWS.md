@@ -1,6 +1,7 @@
 # weektwo 0.0.3
 
-create vignette
+* update `README`
+* create vignette `weektwo-basics`
 
 # weektwo 0.0.2
 

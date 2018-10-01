@@ -29,6 +29,19 @@ devtools::install_github("CorradoLanera/weektwo")
 
 ## Example
 
+``` r
+library(weektwo)
+
+path_to_data <- system.file("sample-data", package = "weektwo")
+
+fars_map_state(state.num = 1,
+    year = 2013,
+    path = path_to_data
+)
+```
+
+<img src="man/figures/README-unnamed-chunk-1-1.png" width="100%" />
+
 ## Code of Conduct
 
 Please note that the **weektwo** project is released with a [Contributor
