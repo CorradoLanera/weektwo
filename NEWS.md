@@ -1,3 +1,7 @@
+# weektwo 0.1
+
+* assignment compelete, build pass with 0 errors, 0 warnings, 0 notes
+
 # weektwo 0.0.3
 
 * update `README`
