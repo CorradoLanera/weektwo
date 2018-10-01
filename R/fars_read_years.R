@@ -29,7 +29,10 @@
 #' }
 fars_read_years <- function(years, path = ".") {
 
-    years <- suppressWarnings(as.numeric(years))
+    years <- suppressWarnings(
+        purrr::set_names(as.numeric(years), as.numeric(years))
+    )
+
     assertive::assert_all_are_whole_numbers(years)
 
     purrr::map(years, function(year) {

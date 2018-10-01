@@ -22,11 +22,6 @@
 #' }
 fars_read <- function(filename) {
 
-    sink(file = "../cicciopasticcio.txt")
-    cat(getwd())
-    cat("\n")
-    sink()
-
     if (!file.exists(filename)) {
         stop("file '", filename, "' does not exist in", getwd())
     }

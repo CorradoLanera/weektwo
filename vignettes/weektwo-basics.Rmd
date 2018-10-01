@@ -16,50 +16,78 @@ knitr::opts_chunk$set(
 )
 ```
 
-Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The `html_vignette` output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The `html_vignette` format:
+This package help you to import and manage fars data.
 
-- Never uses retina figures
-- Has a smaller default figure size
-- Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style
+## Import basic files
+To import fars with the `weektwo` package, you can simply provide the
+full path to your file and call `fars_read()`. In the package, there are
+same sample data in the test folder used to test the package itself.
 
-## Vignette Info
 
-Note the various macros within the `vignette` section of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the `title` field and the `\VignetteIndexEntry` to match the title of your vignette.
+First of all we have to install and load the package 
 
-## Styles
-
-The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows:
-
-    output: 
-      rmarkdown::html_vignette:
-        css: mystyles.css
-
-## Figures
-
-The figure sizes have been customised so that you can easily put two images side-by-side. 
-
-```{r, fig.show='hold'}
-plot(1:10)
-plot(10:1)
+```{r}
+# install.package("devtools")
+# devtools::install_github("CorradoLanera/weektwo")
+library(weektwo)
 ```
 
-You can enable figure captions by `fig_caption: yes` in YAML:
 
-    output:
-      rmarkdown::html_vignette:
-        fig_caption: yes
 
-Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
+Next, we can take advantage the test files to provide some examples
 
-## More Examples
+```{r}
+file_path  <- system.file("tests", "testthat", package = "weektwo")
+fars_files <- list.files(file_path, "\\.bz2$")
 
-You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
+example_fars <- file.path(file_path, fars_files[1])
 
-```{r, echo=FALSE, results='asis'}
-knitr::kable(head(mtcars, 10))
+example_fars
+
+fars_read(example_fars)
 ```
 
-Also a quote using `>`:
 
-> "He who gives up [code] safety for [code] speed deserves neither."
-([via](https://twitter.com/hadleywickham/status/504368538874703872))
+
+Anyway you can load more than one file just providing its data, and the
+path to the folder in wich the files are stored.
+
+```{r}
+list_of_faers <- fars_read_years(c(2013, 2014), path = file_path)
+list_of_faers
+```
+
+The output is a named list, hance we can access to each element by the
+double square brackets (`[[`) both using index or the year itself (as
+a string).
+
+```{r}
+by_index <- list_of_faers[[1]]
+by_name <- list_of_faers[["2013"]]
+
+identical(by_index, by_name)
+
+by_name
+```
+
+
+If you want to compare the distribution of fars among multiple year
+you can directly access to the number of fars each month on the years
+of your interest. This is as simple as a single funciton call
+
+```{r}
+fars_summarize_years(c(2013, 2014), path = file_path)
+```
+
+At the end the `weektwo` package let you able to map the fars among
+countries. Let pass to `fars_map_state()` an ID of a cuntry and you are 
+ready to go!
+
+```{r}
+fars_map_state(
+    state = 1,
+    year  = 2013,
+    path  = file_path
+)
+```
+
